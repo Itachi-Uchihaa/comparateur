@@ -1,12 +1,9 @@
-'use client';
-
 import Link from "next/link";
+import { CheckCircle, ArrowRight, Users, Zap, Shield, TrendingUp } from "lucide-react";
+import { softwareList } from "../data/softwareData";
 import { useState } from "react";
-import type { FormEvent } from "react";
-import { ArrowRight, CheckCircle } from "lucide-react";
-import { softwareList } from "./data/softwareData";
 
-export default function HomePageRoute() {
+export function HomePage() {
   const [formData, setFormData] = useState({
     activity: "",
     employees: "",
@@ -15,18 +12,16 @@ export default function HomePageRoute() {
   });
 
   // "Logiciels du mois" = sélection des 6 meilleurs sur la base des données (classement interne).
-  const topSoftware = [...softwareList]
-    .sort((a, b) => b.rating - a.rating)
-    .slice(0, 6);
+  const topSoftware = [...softwareList].sort((a, b) => b.rating - a.rating).slice(0, 6);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Merci ! Vous recevrez votre recommandation personnalisée par email.");
-    setFormData({ activity: "", employees: "", budget: "", email: "" });
   };
 
   return (
     <div className="bg-white">
+      {/* Hero Section */}
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
           <div className="text-center max-w-4xl mx-auto">
@@ -56,6 +51,7 @@ export default function HomePageRoute() {
         </div>
       </section>
 
+      {/* Trust Section */}
       <section className="bg-gray-50 py-12 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -79,6 +75,7 @@ export default function HomePageRoute() {
         </div>
       </section>
 
+      {/* Quick Filter Section */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
@@ -94,11 +91,7 @@ export default function HomePageRoute() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Votre activité
                 </label>
-                <select
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                  value={formData.activity}
-                  onChange={(e) => setFormData({ ...formData, activity: e.target.value })}
-                >
+                <select className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
                   <option value="">Sélectionnez...</option>
                   <option value="restaurant">Restaurant / Bar</option>
                   <option value="retail">Commerce de détail</option>
@@ -111,11 +104,7 @@ export default function HomePageRoute() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Budget mensuel
                 </label>
-                <select
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                  value={formData.budget}
-                  onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                >
+                <select className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
                   <option value="">Sélectionnez...</option>
                   <option value="0-30">Moins de 30€</option>
                   <option value="30-60">30€ - 60€</option>
@@ -127,11 +116,7 @@ export default function HomePageRoute() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Nombre de caisses
                 </label>
-                <select
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                  value={formData.employees}
-                  onChange={(e) => setFormData({ ...formData, employees: e.target.value })}
-                >
+                <select className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
                   <option value="">Sélectionnez...</option>
                   <option value="1">1 caisse</option>
                   <option value="2-5">2 à 5 caisses</option>
@@ -150,6 +135,7 @@ export default function HomePageRoute() {
         </div>
       </section>
 
+      {/* Top Software Section */}
       <section id="top-logiciels" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
@@ -164,17 +150,17 @@ export default function HomePageRoute() {
                 className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow"
               >
                 {software.badge && (
-                  <div className="text-sm text-gray-700 mb-3">{software.badge}</div>
+                  <div className="text-sm text-gray-700 mb-3">
+                    {software.badge}
+                  </div>
                 )}
                 <div className="flex items-start mb-4">
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-1">{software.name}</h3>
-                    <p className="text-sm text-gray-600">
-                      {software.type} • {software.clientType}
-                    </p>
+                    <p className="text-sm text-gray-600">{software.type} • {software.clientType}</p>
                   </div>
                 </div>
-
+                
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">{software.tagline}</p>
 
                 <div className="mb-4 pb-4 border-b border-gray-200">
@@ -192,9 +178,7 @@ export default function HomePageRoute() {
                 <div className="flex items-center justify-between">
                   <div className="text-sm">
                     <span className="text-gray-600">À partir de </span>
-                    <span className="font-bold text-gray-900">
-                      {software.price.replace("À partir de ", "")}
-                    </span>
+                    <span className="font-bold text-gray-900">{software.price.replace('À partir de ', '')}</span>
                   </div>
                   <Link
                     href={`/logiciel/${software.slug}`}
@@ -209,7 +193,7 @@ export default function HomePageRoute() {
 
           <div className="text-center mt-10">
             <Link
-              href="/comparateur"
+                href="/comparateur"
               className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
             >
               Voir tous les logiciels
@@ -219,6 +203,7 @@ export default function HomePageRoute() {
         </div>
       </section>
 
+      {/* Guide Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -234,7 +219,9 @@ export default function HomePageRoute() {
                 <span className="text-xl font-bold text-blue-600">1</span>
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Type d'activité</h3>
-              <p className="text-gray-600 text-sm">Choisissez un logiciel adapté : restaurant, commerce, salon...</p>
+              <p className="text-gray-600 text-sm">
+                Choisissez un logiciel adapté : restaurant, commerce, salon...
+              </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
@@ -242,7 +229,9 @@ export default function HomePageRoute() {
                 <span className="text-xl font-bold text-blue-600">2</span>
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Budget</h3>
-              <p className="text-gray-600 text-sm">De 0€ à 100€+/mois selon vos besoins</p>
+              <p className="text-gray-600 text-sm">
+                De 0€ à 100€+/mois selon vos besoins
+              </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
@@ -250,7 +239,9 @@ export default function HomePageRoute() {
                 <span className="text-xl font-bold text-blue-600">3</span>
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Fonctionnalités</h3>
-              <p className="text-gray-600 text-sm">Stock, multi-sites, facturation, reporting...</p>
+              <p className="text-gray-600 text-sm">
+                Stock, multi-sites, facturation, reporting...
+              </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
@@ -258,16 +249,23 @@ export default function HomePageRoute() {
                 <span className="text-xl font-bold text-blue-600">4</span>
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Conformité</h3>
-              <p className="text-gray-600 text-sm">Vérifiez la certification NF525 obligatoire</p>
+              <p className="text-gray-600 text-sm">
+                Vérifiez la certification NF525 obligatoire
+              </p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* CTA Section */}
       <section className="py-16 bg-blue-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Besoin d'aide pour choisir ?</h2>
-          <p className="text-xl text-blue-100 mb-8">Recevez une recommandation personnalisée gratuite</p>
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Besoin d'aide pour choisir ?
+          </h2>
+          <p className="text-xl text-blue-100 mb-8">
+            Recevez une recommandation personnalisée gratuite
+          </p>
 
           <form onSubmit={handleSubmit} className="bg-white rounded-lg p-6 max-w-2xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -301,7 +299,9 @@ export default function HomePageRoute() {
               Recevoir ma recommandation gratuite
             </button>
 
-            <p className="text-xs text-gray-500 text-center mt-3">Gratuit • Sans engagement • Réponse sous 24h</p>
+            <p className="text-xs text-gray-500 text-center mt-3">
+              Gratuit • Sans engagement • Réponse sous 24h
+            </p>
           </form>
         </div>
       </section>
